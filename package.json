@@ -1,0 +1,17 @@
+{
+  "name": "spacex_api",
+  "version": "1.0.0",
+  "description": "Este é um desafio para podermos ver suas habilidades como Fullstack Developer.\r Nesse desafio você deverá desenvolver um aplicativo para listar informações da API SpaceX-API.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^6.2.0",
+    "@typescript-eslint/parser": "^6.2.0",
+    "eslint": "^8.46.0"
+  }
+}
