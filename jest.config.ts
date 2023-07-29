@@ -9,6 +9,7 @@ const config: Config =
     transform: {
         '.+\\.ts$': 'ts-jest',
     },
+    "testPathIgnorePatterns": ["node_modules", "prisma", "test", ".github", ".husky"]
 }
 
 export default config
