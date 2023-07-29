@@ -1,0 +1,7 @@
+version: '3'
+
+services:
+  space-x-api:
+    image: amandalfs/space-x-api:16
+    ports:
+      - 8020:8020
