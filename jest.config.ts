@@ -1,6 +1,7 @@
 import { Config } from 'jest'
 
-const config: Config = {
+const config: Config = 
+{
     roots: ['<rootDir>/src/'],
     collectCoverageFrom: ['<rootDir>/src/**/*.spec.ts'],
     coverageDirectory: 'coverage',
