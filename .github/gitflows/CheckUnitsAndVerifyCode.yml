@@ -1,0 +1,25 @@
+name: Action-Tests-Units
+
+on:
+  pull_request:
+    branches: [ develop, main ]
+
+jobs:
+  CheckUnits:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: 'npm'
+      - run: npm run test
+  CheckLint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: 'npm'
+      - run: npm run lint   
