@@ -4,7 +4,8 @@
   "description": "Este é um desafio para podermos ver suas habilidades como Fullstack Developer.\r Nesse desafio você deverá desenvolver um aplicativo para listar informações da API SpaceX-API.",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint ./src/**"
+    "lint": "eslint ./src/**",
+    "staged": "lint-staged"
   },
   "keywords": [],
   "author": "",
