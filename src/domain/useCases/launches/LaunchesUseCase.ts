@@ -20,6 +20,10 @@ class DTORequestLaunchesUseCase {
     ){}
 }
 
+interface ILaunchesUseCase {
+    handle(request: DTORequestLaunchesUseCase): Promise<DTOResponseLaunchesUseCase>
+}
+
 class LaunchesUseCase{
     constructor(private launchesRepository: ILaunchesRepository){}
     
@@ -65,5 +69,6 @@ class LaunchesUseCase{
 export {
     LaunchesUseCase,
     DTORequestLaunchesUseCase,
-    DTOResponseLaunchesUseCase
+    DTOResponseLaunchesUseCase,
+    ILaunchesUseCase
 }
