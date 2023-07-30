@@ -15,28 +15,50 @@ class DTORequestLaunchesUseCase {
     constructor(
         public page: number,
         public rowsLimit: number,
+        public result?: boolean,
+        public search?: string,
     ){}
 }
 
 class LaunchesUseCase{
     constructor(private launchesRepository: ILaunchesRepository){}
+    
+    private launches: IGetLaunch [];
+    private totalDocs: number;
 
-    async handle({ page, rowsLimit  }: DTORequestLaunchesUseCase){
-        const launches = await this.launchesRepository.getAll(page, rowsLimit);
-        const totalDocs = await this.launchesRepository.countRows();
+    async handle({ page, rowsLimit, search, result }: DTORequestLaunchesUseCase){
 
-        const totalPages = totalDocs / rowsLimit;
-        const hasNext = page * rowsLimit < totalDocs;
-        const hasPrev = page * rowsLimit > rowsLimit;
+        if(search || result !== undefined){
+            this.launches = await this.launchesRepository.searchLaunch(page, rowsLimit, search, result);
+            this.totalDocs = await this.launchesRepository.countOfSearch(search, result);
+        } else {
+            this.launches = await this.launchesRepository.getAll(page, rowsLimit);
+            this.totalDocs = await this.launchesRepository.countRows();
+        }       
+        
+
+        const { totalPages, hasNext,  hasPrev } = this.pagesDetails(this.totalDocs, rowsLimit, page);
 
         return new DTOResponseLaunchesUseCase(
-            launches,
-            totalDocs,
+            this.launches,
+            this.totalDocs,
             page,
             totalPages,
             hasNext,
             hasPrev,
         );
+    }
+
+    pagesDetails(totalDocs, rowsLimit, page){
+        const totalPages = totalDocs / rowsLimit;
+        const hasNext = page * rowsLimit < totalDocs;
+        const hasPrev = page * rowsLimit > rowsLimit;
+
+        return {
+            totalPages,
+            hasNext,
+            hasPrev
+        }
     }
 }
 
