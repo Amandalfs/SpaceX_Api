@@ -9,7 +9,7 @@ datasource db {
 
 model Launch {
   id            String    @id
-  success       String
+  success       Boolean
   flight_number Int
   date_utc      DateTime
   webcast       String
