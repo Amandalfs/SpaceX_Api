@@ -3,7 +3,7 @@ import { Config } from 'jest'
 const config: Config = 
 {
     roots: ['<rootDir>/src/'],
-    collectCoverageFrom: ['<rootDir>/src/**/*.spec.ts'],
+    collectCoverageFrom: ['<rootDir>/src/**/*.integration.spec.ts'],
     coverageDirectory: 'coverage',
     testEnvironment: 'node',
     transform: {
