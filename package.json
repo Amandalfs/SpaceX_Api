@@ -6,7 +6,7 @@
     "scripts": {
         "lint": "eslint src --ext .ts --fix",
         "staged": "lint-staged",
-        "test": "jest --passWithNoTests",
+        "test": "jest",
         "prepare": "husky install",
         "dev": "tsx ./src/server.ts",
         "test:integration": "jest --config ./jest.integration.config.ts",
