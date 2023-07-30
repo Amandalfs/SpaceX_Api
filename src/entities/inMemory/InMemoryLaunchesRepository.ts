@@ -9,12 +9,12 @@ class InMemoryLaunchesRepository implements ILaunchesRepository {
     constructor(){
         this.launches = Array.from({ length: 10 }).map((_, i) => ({
             id: `id${i}`,
-            success: true,
+            success: i >= 5,
             flight_number: i,
             date_utc: new Date("02,10,20"),
             webcast: `https://www.example.com/webcast/${i}`,
-            reused: true,
-            name: `Launch ${i}`,
+            reused: i >= 5,
+            name: `Launch${i < 5 ? "test" : ""}`,
             rocket_id: `rocket_id${i}`,
             rocket: {
                 id: `rocket_id${i}`,
@@ -27,6 +27,8 @@ class InMemoryLaunchesRepository implements ILaunchesRepository {
             })),
         }));
     }
+    
+    
 
     async countRows(): Promise<number> {
         return new Promise((resolve) => resolve(this.launches.length));
@@ -44,6 +46,59 @@ class InMemoryLaunchesRepository implements ILaunchesRepository {
     async getAll(page: number, pageSize: number): Promise<IGetLaunch[]> {
         return new Promise((resolve)=> resolve(
             this.launches.slice((page-1) * pageSize, page *pageSize)
+        ));
+    }
+
+    async searchLaunch(page: number, pageSize: number, search?: string, result?: boolean): Promise<IGetLaunch[]> {
+        if(search && result !== undefined){
+            const launchesFilters = this.launches.filter((launch)=>{
+                return (launch.name.toLowerCase().includes(search.toLocaleLowerCase()) ||
+                launch.rocket.name.toLowerCase().includes(search.toLocaleLowerCase())) &&
+                launch.success === result
+            })
+            return new Promise((resolve) => resolve(launchesFilters.slice((page-1) * pageSize, page *pageSize)));
+
+        } else if (search) {
+            const launchesFilters = this.launches.filter((launch)=>{
+                return launch.name.toLowerCase().includes(search.toLocaleLowerCase()) ||
+                launch.rocket.name.toLowerCase().includes(search.toLocaleLowerCase())
+            })
+            return new Promise((resolve) => resolve(launchesFilters.slice((page-1) * pageSize, page *pageSize)));
+        }
+
+        const launchesFilters = this.launches.filter((launch)=>{
+            return launch.success === result;
+        })
+
+        return new Promise((resolve)=> resolve(
+            launchesFilters.slice((page-1) * pageSize, page *pageSize)
+        ));
+        
+    }
+
+    async countOfSearch(search?: string, result?: boolean): Promise<number> {
+        if(search && result !== undefined){
+            const launchesFilters = this.launches.filter((launch)=>{
+                return (launch.name.toLowerCase().includes(search.toLocaleLowerCase()) ||
+                launch.rocket.name.toLowerCase().includes(search.toLocaleLowerCase())) &&
+                launch.success === result
+            })
+            return new Promise((resolve) => resolve(launchesFilters.length));
+
+        } else if (search) {
+            const launchesFilters = this.launches.filter((launch)=>{
+                return launch.name.toLowerCase().includes(search.toLocaleLowerCase()) ||
+                launch.rocket.name.toLowerCase().includes(search.toLocaleLowerCase())
+            })
+            return new Promise((resolve) => resolve(launchesFilters.length));
+        }
+
+        const launchesFilters = this.launches.filter((launch)=>{
+            return launch.success === result;
+        })
+
+        return new Promise((resolve)=> resolve(
+            launchesFilters.length
         ));
     }
 }
