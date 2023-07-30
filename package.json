@@ -8,12 +8,15 @@
         "staged": "lint-staged",
         "test": "jest --passWithNoTests",
         "prepare": "husky install",
-        "dev": "tsx ./src/server.ts"
+        "dev": "tsx ./src/server.ts",
+        "test:integration": "jest --config ./jest.integration.config.ts",
+        "reset-db": "prisma migrate reset --force"
     },
     "keywords": [],
     "author": "",
     "license": "ISC",
     "devDependencies": {
+        "@types/jest": "^29.5.3",
         "@types/node": "^20.4.5",
         "@typescript-eslint/eslint-plugin": "^6.2.0",
         "@typescript-eslint/parser": "^6.2.0",
