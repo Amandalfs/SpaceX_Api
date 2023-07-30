@@ -25,6 +25,8 @@ interface ILaunchesRepository {
     add(data: Launch): Promise<void>
     adds(datas: Launch[]): Promise<void>
     getAll(page: number, pageSize: number): Promise<IGetLaunch[]>
+    searchLaunch(page: number, pageSize: number, search: string, result: boolean ): Promise<IGetLaunch[]>
+    countOfSearch(search?: string, result?: boolean ): Promise<number>
     countRows(): Promise<number>
 }
 
