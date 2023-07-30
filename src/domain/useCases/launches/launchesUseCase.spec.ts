@@ -40,4 +40,30 @@ describe("testando o useCase de launches", ()=>{
         expect(response2.hasNext).toEqual(false);
         expect(response2.hasPrev).toEqual(true);
     });
+
+    it("esperar poder filtrar os dados de laçamemto", async ()=>{
+        const { suit } = makeSuit();
+        const request = new DTORequestLaunchesUseCase(1, 5, false);
+        const response =  await suit.handle(request);
+
+        expect(response.launches).toHaveLength(5);
+        expect(response.totalDocs).toEqual(5);
+        expect(response.page).toEqual(1);
+        expect(response.totalPages).toEqual(1);
+        expect(response.hasNext).toEqual(false);
+        expect(response.hasPrev).toEqual(false);
+
+        const request2 = new DTORequestLaunchesUseCase(1, 5, undefined, "Launchtest");
+        const response2 =  await suit.handle(request2);
+
+        expect(response2.launches).toHaveLength(5);
+        expect(response2.totalDocs).toEqual(5);
+        expect(response2.page).toEqual(1);
+        expect(response2.totalPages).toEqual(1);
+        expect(response2.hasNext).toEqual(false);
+        expect(response2.hasPrev).toEqual(false);
+
+
+
+    })
 });
