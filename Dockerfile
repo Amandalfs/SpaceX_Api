@@ -8,6 +8,8 @@ RUN npm install
 
 COPY . .
 
+RUN npm migraterun
+
 EXPOSE 8020
 
 CMD ["npm", "run", "dev"]

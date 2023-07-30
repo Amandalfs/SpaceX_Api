@@ -10,7 +10,8 @@
         "prepare": "husky install",
         "dev": "tsx ./src/server.ts",
         "test:integration": "jest --config ./jest.integration.config.ts",
-        "reset-db": "prisma migrate reset --force"
+        "reset-db": "prisma migrate reset --force",
+        "migrate:run": "prisma migrate deploy"
     },
     "keywords": [],
     "author": "",
