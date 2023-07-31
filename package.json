@@ -9,6 +9,7 @@
         "test": "jest",
         "prepare": "husky install",
         "dev": "tsx ./src/server.ts",
+        "start": "npm run migrate:run && npm run dev",
         "job:run": "tsx ./src/services/jobs/jobUpdateDatabase.ts",
         "test:integration": "jest --config ./jest.integration.config.ts",
         "reset-db": "prisma migrate reset --force",
