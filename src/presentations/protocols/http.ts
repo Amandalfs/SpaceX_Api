@@ -4,6 +4,12 @@ export interface HttpResponse {
 }
 
 export interface HttpRequest {
-    query?,
-    body?,
+    query?: {
+        search?: string,
+        limit?: number,
+        result?: string | null,
+    },
+    body?: {
+        page?: number
+    },
 }
