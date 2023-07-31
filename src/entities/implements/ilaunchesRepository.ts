@@ -20,6 +20,12 @@ interface IGetLaunch {
     }[];
 }
 
+interface PizzaStats {
+    name: string,
+    count: number,
+    used: boolean,
+}
+
   
 interface ILaunchesRepository {
     add(data: Launch): Promise<void>
@@ -28,9 +34,11 @@ interface ILaunchesRepository {
     searchLaunch(page: number, pageSize: number, search: string, result: boolean ): Promise<IGetLaunch[]>
     countOfSearch(search?: string, result?: boolean ): Promise<number>
     countRows(): Promise<number>
+    statsOfPizza(): Promise<PizzaStats[]>
 }
 
 export {
     ILaunchesRepository,
-    IGetLaunch
+    IGetLaunch,
+    PizzaStats,
 }
