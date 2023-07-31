@@ -3,6 +3,8 @@ import { ILaunchesRepository, PizzaStats } from "@/entities/implements/ilaunches
 class DTOResponseStatsPizzaLauncheUseCase {
     constructor(
         public statsPizza: PizzaStats[],
+        public success: number,
+        public failures: number
     ){}
 }
 
@@ -16,7 +18,8 @@ class StatsPizzaLauncheUseCase {
 
     async handle(){
         const statsPizza = await this.launchesRepository.statsOfPizza();
-        return new DTOResponseStatsPizzaLauncheUseCase(statsPizza);
+        const { success, failures } = await this.launchesRepository.sumaryStats();
+        return new DTOResponseStatsPizzaLauncheUseCase(statsPizza, success, failures);
     }
     
 }
