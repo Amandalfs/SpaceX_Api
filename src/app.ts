@@ -1,6 +1,5 @@
 import express  from "express";
 import { routes } from "./main/routes";
-import { databaseUpdate, task } from "./services/jobs/jobUpdateDatabase";
 import swaggerJsdoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 import cors from "cors";
@@ -35,9 +34,6 @@ const options = {
 const swaggerSpec = swaggerJsdoc(options);
   
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
-
-databaseUpdate.execute();
-task.start();
 
 export { app }
  

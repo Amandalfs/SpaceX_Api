@@ -6,12 +6,13 @@
     "scripts": {
         "lint": "eslint src --ext .ts --fix",
         "staged": "lint-staged",
-        "test": "jest",
         "prepare": "husky install",
         "dev": "tsx ./src/server.ts",
         "start": "npm run migrate:run && npm run dev",
         "job:run": "tsx ./src/services/jobs/jobUpdateDatabase.ts",
+        "test": "jest",
         "test:integration": "jest --config ./jest.integration.config.ts",
+        "test:e2e": "jest --config ./jest.e2e.config.ts",
         "reset-db": "prisma migrate reset --force",
         "migrate:run": "prisma migrate deploy"
     },

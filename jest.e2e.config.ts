@@ -9,7 +9,7 @@ const config: Config =
     transform: {
         '.+\\.ts$': 'ts-jest',
     },
-    testMatch: ["**/*.integration.ts"],
+    testMatch: ["**/*.e2e.ts"],
     testPathIgnorePatterns: ["node_modules", "prisma", "test", ".github", ".husky"],
     moduleNameMapper: {
         '@/(.*)': '<rootDir>/src/$1',

@@ -1,4 +1,3 @@
-import cron from 'node-cron';
 import { DatabaseUpdate } from '../DatabaseUpdate/DatabaseUpdate';
 import { PrismaFailuresRepository } from '@/entities/prismaRepositories/prismaFailuresRepository';
 import { PrismaLaunchesRepository } from '@/entities/prismaRepositories/prismaLaunchesRepository';
@@ -18,6 +17,3 @@ export const databaseUpdate = new DatabaseUpdate(
     prismaFailuresRepository, 
     apiSpace
 );
-
-export const task = cron.schedule('0 9 * * *', databaseUpdate.execute);
-
