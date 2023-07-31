@@ -12,6 +12,7 @@ const launches_routes = Router();
  * /launches:
  *   get:
  *     summary: Rota de lançamentos
+ *     tags: ["launches"]
  *     produces:
  *       - application/json
  *     parameters:
@@ -121,6 +122,50 @@ launches_routes.get("/", (req: Request, res: Response)=>{
     const controller = makeGetLaunchesController();
     return controllerAdapterExpress.handle(req, res, controller);
 });
+
+/**
+ * @swagger
+ * /launches/stats:
+ *   get:
+ *     tags: ["launches"]
+ *     summary: Retorna estatísticas dos lançamentos de foguetes.
+ *     responses:
+ *       200:
+ *         description: Sucesso na obtenção das estatísticas dos lançamentos de foguetes.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 statsPizza:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       name:
+ *                         type: string
+ *                         description: Nome do foguete.
+ *                       used:
+ *                         type: boolean
+ *                         description: Indica se o foguete foi reusado ou não.
+ *                       count:
+ *                         type: integer
+ *                         description: Quantidade de lançamentos do foguete.
+ *                   example:
+ *                     - name: Falcon 9
+ *                       used: true
+ *                       count: 115
+ *                     - name: Falcon 1
+ *                       used: false
+ *                       count: 5
+ *                     - name: Falcon Heavy
+ *                       used: false
+ *                       count: 5
+ *                     - name: Falcon 9
+ *                       used: false
+ *                       count: 80
+ */
+
 
 launches_routes.get("/stats", (req: Request, res: Response)=>{
     const controller = makeStatsPizzaLaunchesController();
