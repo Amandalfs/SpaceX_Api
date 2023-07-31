@@ -20,17 +20,6 @@ interface IGetLaunch {
     }[];
 }
 
-interface PizzaStats {
-    name: string,
-    count: number,
-    used: boolean,
-}
-
-interface ISummary {
-    success: number,
-    failures: number,
-}
-
   
 interface ILaunchesRepository {
     add(data: Launch): Promise<void>
@@ -39,13 +28,9 @@ interface ILaunchesRepository {
     searchLaunch(page: number, pageSize: number, search: string, result: boolean ): Promise<IGetLaunch[]>
     countOfSearch(search?: string, result?: boolean ): Promise<number>
     countRows(): Promise<number>
-    statsOfPizza(): Promise<PizzaStats[]>
-    sumaryStats(): Promise<ISummary>
 }
 
 export {
     ILaunchesRepository,
-    IGetLaunch,
-    PizzaStats,
-    ISummary
+    IGetLaunch
 }

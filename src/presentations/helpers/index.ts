@@ -1,12 +1,10 @@
 import { DTOResponseLaunchesUseCase } from '@/domain/useCases/launches/LaunchesUseCase';
 import { HttpResponse } from '../protocols/http';
-import { DTOResponseStatsPizzaLauncheUseCase } from '@/domain/useCases/launches/statsPizzaLauncheUseCase';
 
 interface Message  {
     message: string
 }
-
-type Responses = DTOResponseLaunchesUseCase | Message | DTOResponseStatsPizzaLauncheUseCase;
+type Responses = DTOResponseLaunchesUseCase | Message;
 
 export const ServerError = (): HttpResponse => {
     return {
