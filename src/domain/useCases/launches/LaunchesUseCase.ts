@@ -13,8 +13,8 @@ class DTOResponseLaunchesUseCase {
 
 class DTORequestLaunchesUseCase {
     constructor(
-        public page: number,
-        public rowsLimit: number,
+        public page: number = 1,
+        public rowsLimit: number = 5,
         public result?: boolean,
         public search?: string,
     ){}
@@ -31,7 +31,6 @@ class LaunchesUseCase{
     private totalDocs: number;
 
     async handle({ page, rowsLimit, search, result }: DTORequestLaunchesUseCase){
-
         if(search || result !== undefined){
             this.launches = await this.launchesRepository.searchLaunch(page, rowsLimit, search, result);
             this.totalDocs = await this.launchesRepository.countOfSearch(search, result);
@@ -54,7 +53,7 @@ class LaunchesUseCase{
     }
 
     pagesDetails(totalDocs, rowsLimit, page){
-        const totalPages = totalDocs / rowsLimit;
+        const totalPages = Math.ceil(totalDocs / rowsLimit);
         const hasNext = page * rowsLimit < totalDocs;
         const hasPrev = page * rowsLimit > rowsLimit;
 
