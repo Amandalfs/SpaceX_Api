@@ -164,7 +164,16 @@ launches_routes.get("/", (req: Request, res: Response)=>{
  *                     - name: Falcon 9
  *                       used: false
  *                       count: 80
+ *                 success:
+ *                   type: integer
+ *                   description: Total de lançamentos bem-sucedidos.
+ *                   example: 181
+ *                 failures:
+ *                   type: integer
+ *                   description: Total de falhas em lançamentos.
+ *                   example: 24
  */
+
 
 
 launches_routes.get("/stats", (req: Request, res: Response)=>{
