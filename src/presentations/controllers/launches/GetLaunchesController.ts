@@ -9,8 +9,7 @@ class GetLaunchesController implements HttpController {
 
     async handle(req: HttpRequest): Promise<HttpResponse> {
         try {
-            const { search, result, limit } = req.query;
-            const { page } = req.body;
+            const { search, result, limit, page } = req.query;
             const pageLimit = isNaN(limit) ? 5: limit;
             const resultLaunch = result!==undefined ? JSON.parse(result): result;
 

@@ -8,8 +8,6 @@ export interface HttpRequest {
         search?: string,
         limit?: number,
         result?: string | null,
-    },
-    body?: {
         page?: number
-    },
+    }
 }
