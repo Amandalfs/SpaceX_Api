@@ -1,6 +1,7 @@
 import { Router, Request, Response } from "express";
 import { makeGetLaunchesController } from "../factores/makeGetLaunchesController";
 import { ControllerAdapterExpress } from "../controllerAdapterExpress";
+import { makeStatsPizzaLaunchesController } from "../factores/makeStatsPizzaLaunchesController";
 
 const controllerAdapterExpress = new ControllerAdapterExpress;
 
@@ -120,5 +121,10 @@ launches_routes.get("/", (req: Request, res: Response)=>{
     const controller = makeGetLaunchesController();
     return controllerAdapterExpress.handle(req, res, controller);
 });
+
+launches_routes.get("/stats", (req: Request, res: Response)=>{
+    const controller = makeStatsPizzaLaunchesController();
+    return controllerAdapterExpress.handle(req, res, controller);
+})
 
 export { launches_routes };
