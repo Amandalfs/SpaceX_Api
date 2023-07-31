@@ -1,7 +1,29 @@
 version: '3'
 
 services:
+  db:
+    image: postgres
+    environment:
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
+      POSTGRES_DB: spacex
+    ports:
+      - "5432:5432"
+    networks:
+      - spacex_network
+      
   space-x-api:
     image: amandalfs/space-x-api:16
     ports:
       - 8020:8020
+    env_file:
+      - .env
+    build: .
+    command: sh -c "npx prisma migrate deploy && npm run dev"
+    depends_on:
+      - db
+    networks:
+      - spacex_network
+
+networks:
+  spacex_network:

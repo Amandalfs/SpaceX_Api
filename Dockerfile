@@ -2,14 +2,14 @@ FROM node:16
 
 WORKDIR /usr/app
 
-COPY package.json ./
+COPY package*.json ./
 
 RUN npm install
 
 COPY . .
 
-RUN npm migraterun
+RUN npx prisma generate
 
 EXPOSE 8020
 
-CMD ["npm", "run", "dev"]
+CMD ["npm", "start"]
