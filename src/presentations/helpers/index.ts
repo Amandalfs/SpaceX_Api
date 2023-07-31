@@ -1,7 +1,10 @@
 import { DTOResponseLaunchesUseCase } from '@/domain/useCases/launches/LaunchesUseCase';
 import { HttpResponse } from '../protocols/http';
 
-type Responses = DTOResponseLaunchesUseCase;
+interface Message  {
+    message: string
+}
+type Responses = DTOResponseLaunchesUseCase | Message;
 
 export const ServerError = (): HttpResponse => {
     return {
