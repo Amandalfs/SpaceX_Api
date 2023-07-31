@@ -31,31 +31,54 @@ class PrismaLaunchesRepository implements ILaunchesRepository {
     async countRows(): Promise<number> {
         return prisma.launch.count();
     }
-
+    
     async searchLaunch(page: number, pageSize: number, search: string, result: boolean){
         const launches = await prisma.launch.findMany({
             where: {
-                name: { contains: search },
-                success: result ,
-                rocket: {
-                    name: { contains: search }
-                }
+              success: result,
+              OR: [
+                { 
+                  name: { 
+                    contains: search,
+                    mode: 'insensitive'
+                  },
+                },
+                { 
+                  rocket: { 
+                    name: { 
+                      contains: search,
+                      mode: 'insensitive'
+                    } 
+                  },
+                },
+                { 
+                  Payload: { 
+                    some: { 
+                      name: { 
+                        contains: search,
+                        mode: 'insensitive'
+                      } 
+                    },
+                  },
+                },
+              ]
             },
-            skip: (page - 1) * pageSize,
             take: pageSize,
+            skip: (page - 1) * pageSize,
             include: { rocket: true, Payload: true },
-        })
+          })
         return launches;
     }
 
     async countOfSearch(search?: string, result?: boolean): Promise<number> {
         const launches = await prisma.launch.count({
             where: {
-                name: { contains: search },
-                success: result ,
-                rocket: {
-                    name: { contains: search }
-                }
+                success: result,
+                OR: [
+                    { name: { contains: search, mode: "insensitive" } },
+                    { rocket: { name: { contains: search, mode: "insensitive" } } },
+                    { Payload: { some: { name: { contains: search, mode: "insensitive" } } } },
+                  ],
             }
         })
         return launches;
