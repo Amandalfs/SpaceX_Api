@@ -12,6 +12,8 @@ COPY . .
 
 RUN npx prisma generate
 
+RUN npm run migrate:run
+
 EXPOSE 8020
 
-CMD ["npm", "run", "migrate:run", "&&", "npm", "run", "dev"]
+CMD ["npm", "run", "dev"]
