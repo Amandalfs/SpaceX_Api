@@ -1,8 +1,9 @@
-import { ILaunchesRepository, PizzaStats } from "../implements/ilaunchesRepository";
+import { ILaunchesRepository, ISummary, PizzaStats } from "../implements/ilaunchesRepository";
 import { Launch } from '@prisma/client';
 import { prisma } from "../prismaClient";
 
 class PrismaLaunchesRepository implements ILaunchesRepository {
+  
   
   async add(data: Launch){
         await prisma.launch.create({data});
@@ -130,6 +131,25 @@ class PrismaLaunchesRepository implements ILaunchesRepository {
       const statsPizza: PizzaStats[] = [...formattedResult, ...formattedResultNotReused]
 
       return statsPizza;
+    }
+
+    async sumaryStats(): Promise<ISummary> {
+      const success = await prisma.launch.count({
+        where: {
+            success: true, 
+        }
+      })
+
+      const failures = await prisma.launch.count({
+        where: {
+            success: false, 
+        }
+      })
+
+      return {
+        success, 
+        failures
+      }
     }
 }
 

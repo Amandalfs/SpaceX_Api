@@ -104,6 +104,13 @@ class InMemoryLaunchesRepository implements ILaunchesRepository {
             launchesFilters.length
         ));
     }
+
+    async sumaryStats() {
+        return {
+          success: 15, 
+          failures: 85
+        }
+    }
 }
 
 
