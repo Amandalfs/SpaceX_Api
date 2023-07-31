@@ -26,6 +26,11 @@ interface PizzaStats {
     used: boolean,
 }
 
+interface ISummary {
+    success: number,
+    failures: number,
+}
+
   
 interface ILaunchesRepository {
     add(data: Launch): Promise<void>
@@ -35,10 +40,12 @@ interface ILaunchesRepository {
     countOfSearch(search?: string, result?: boolean ): Promise<number>
     countRows(): Promise<number>
     statsOfPizza(): Promise<PizzaStats[]>
+    sumaryStats(): Promise<ISummary>
 }
 
 export {
     ILaunchesRepository,
     IGetLaunch,
     PizzaStats,
+    ISummary
 }
