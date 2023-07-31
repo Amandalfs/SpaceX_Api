@@ -1,10 +1,9 @@
-import express, { Request, Response }  from "express";
+import express  from "express";
+import { routes } from "./main/routes";
 const app = express();
 
 app.use(express.json());
-app.get("/", (req: Request, res: Response)=>{
-    res.status(200).send("Fullstack Challenge 🏅 - Space X API");
-})
+app.use(routes);
 
 export { app }
  
