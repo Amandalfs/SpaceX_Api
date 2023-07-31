@@ -1,10 +1,10 @@
-import { ILaunchesRepository } from "../implements/ilaunchesRepository";
+import { ILaunchesRepository, PizzaStats } from "../implements/ilaunchesRepository";
 import { Launch } from '@prisma/client';
 import { prisma } from "../prismaClient";
 
 class PrismaLaunchesRepository implements ILaunchesRepository {
-    
-    async add(data: Launch){
+  
+  async add(data: Launch){
         await prisma.launch.create({data});
     }
     
@@ -84,6 +84,53 @@ class PrismaLaunchesRepository implements ILaunchesRepository {
         return launches;
     }
 
+    async statsOfPizza(): Promise<PizzaStats[]> {
+      const reusedLaunches = await prisma.$queryRaw<PizzaStats[]>`
+        SELECT
+      r.name AS "rocket name",
+      l.reused AS "used",
+      COUNT(*) AS "count"
+    FROM
+      launches l
+      JOIN rockets r ON l.rocket_id = r.id
+    WHERE
+      l.reused = true
+    GROUP BY
+      r.name,
+      l.reused
+      `
+
+      const notReusedLaunches = await prisma.$queryRaw<PizzaStats[]>`
+        SELECT
+      r.name AS "rocket name",
+      l.reused AS "used",
+      COUNT(*) AS "count"
+    FROM
+      launches l
+      JOIN rockets r ON l.rocket_id = r.id
+    WHERE
+      l.reused = false
+    GROUP BY
+      r.name,
+      l.reused
+      `
+      
+      const formattedResult = reusedLaunches.map(item => ({
+        name: item["rocket name"],
+        used: item.used,
+        count: Number(item.count),
+      }));
+
+      const formattedResultNotReused = notReusedLaunches.map(item => ({
+        name: item["rocket name"],
+        used: item.used,
+        count: Number(item.count),
+      }));
+
+      const statsPizza: PizzaStats[] = [...formattedResult, ...formattedResultNotReused]
+
+      return statsPizza;
+    }
 }
 
 export {
