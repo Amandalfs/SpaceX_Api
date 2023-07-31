@@ -54,13 +54,11 @@ describe("testando o controller GetLaunches", ()=>{
         jest.spyOn(useCase, "handle").mockRejectedValue(new Error);
         const response = await suit.handle({
             query: {
-                result: null,
-                limit: null,
-                search: null,
+                result: undefined,
+                limit: undefined,
+                search: undefined,
+                page: undefined,
             },
-            body: {
-                page: null,
-            }
         })
         expect(response.body.message).toEqual("Server Internal Error");
     });
@@ -69,12 +67,10 @@ describe("testando o controller GetLaunches", ()=>{
         const { suit } = makeSuit();
         const response = await suit.handle({
             query: {
-                result: null,
-                limit: null,
-                search: null,
-            },
-            body: {
-                page: null,
+                result: undefined,
+                limit: undefined,
+                search: undefined,
+                page: undefined,
             }
         })
 
