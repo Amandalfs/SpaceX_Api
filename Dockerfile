@@ -14,4 +14,4 @@ RUN npx prisma generate
 
 EXPOSE 8020
 
-CMD ["npm", "run", "start"]
+CMD ["npm", "run", "dev"]

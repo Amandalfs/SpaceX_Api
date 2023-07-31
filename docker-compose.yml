@@ -18,8 +18,6 @@ services:
       - 8020:8020
     env_file:
       - .env
-    build: .
-    command: sh -c "npx prisma migrate deploy && npm run dev"
     depends_on:
       - db
     networks:
