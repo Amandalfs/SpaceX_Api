@@ -1,6 +1,8 @@
-import { ILaunchesRepository, ISummary, PizzaStats } from "../implements/ilaunchesRepository";
+import { ILaunchesRepository, ISummary, PizzaStats, arrayStatsByYear } from "../implements/ilaunchesRepository";
 import { Launch } from '@prisma/client';
 import { prisma } from "../prismaClient";
+
+
 
 class PrismaLaunchesRepository implements ILaunchesRepository {
   
@@ -151,6 +153,57 @@ class PrismaLaunchesRepository implements ILaunchesRepository {
         failures
       }
     }
+
+    async getLaunchStatsByYearAndRocket() {
+      const statsByYearAndRocket = await prisma.$queryRaw<arrayStatsByYear[]>`
+        SELECT
+          r.name as "rocketName",
+          r.id as "rocketId",
+          EXTRACT(YEAR FROM l.date_utc) as "year",
+          l.reused,
+          COUNT(*) as "count"
+        FROM
+          launches l
+          JOIN rockets r ON l.rocket_id = r.id
+        GROUP BY
+          r.name,
+          r.id,
+          EXTRACT(YEAR FROM l.date_utc),
+          l.reused
+        ORDER BY
+         "year" ASC
+      `;
+    
+      const statsByYears = statsByYearAndRocket.map((launch)=>{
+        return {
+          ...launch,
+          count: Number(launch.count)
+        }
+      })
+
+
+      function groupByRocketAndReuse(stats) {
+        const result = {};
+      
+        stats.forEach(stat => {
+          const key = `${stat.rocketName}_${stat.reused}`;
+      
+          if (!result[key]) {
+            result[key] = [];
+          }
+      
+          result[key].push(stat);
+        });
+      
+        return result;
+      }
+      
+      const groupedStats = groupByRocketAndReuse(statsByYears);
+
+      return groupedStats;
+    }
+    
+
 }
 
 export {
