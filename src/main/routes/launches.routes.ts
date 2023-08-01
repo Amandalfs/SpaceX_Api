@@ -182,6 +182,130 @@ launches_routes.get("/stats", (req: Request, res: Response)=>{
     return controllerAdapterExpress.handle(req, res, controller);
 })
 
+/**
+ * @swagger
+ * /launches/stats/years:
+ *   get:
+ *     tags: ["launches"]
+ *     summary: Obtém as estatísticas de lançamentos por ano e tipo de foguete.
+ *     responses:
+ *       200:
+ *         description: Resposta bem-sucedida contendo as estatísticas de lançamentos por ano e tipo de foguete.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 statsByYear:
+ *                   type: object
+ *                   properties:
+ *                     "Falcon 9 new":
+ *                       type: array
+ *                       items:
+ *                         type: object
+ *                         properties:
+ *                           rocketName:
+ *                             type: string
+ *                             description: Nome do foguete.
+ *                           rocketId:
+ *                             type: string
+ *                             description: ID do foguete.
+ *                           year:
+ *                             type: number
+ *                             description: Ano do lançamento.
+ *                           reused:
+ *                             type: boolean
+ *                             description: Indica se o foguete foi reusado ou não.
+ *                           count:
+ *                             type: number
+ *                             description: Quantidade de lançamentos do foguete.
+ *                       example:
+ *                         - rocketName: Falcon 9 new
+ *                           rocketId: "5e9d0d95eda69973a809d1ec"
+ *                           year: 2020
+ *                           reused: true
+ *                           count: 21
+ *                     "Falcon Heavy":
+ *                       type: array
+ *                       items:
+ *                         type: object
+ *                         properties:
+ *                           rocketName:
+ *                             type: string
+ *                             description: Nome do foguete.
+ *                           rocketId:
+ *                             type: string
+ *                             description: ID do foguete.
+ *                           year:
+ *                             type: number
+ *                             description: Ano do lançamento.
+ *                           reused:
+ *                             type: boolean
+ *                             description: Indica se o foguete foi reusado ou não.
+ *                           count:
+ *                             type: number
+ *                             description: Quantidade de lançamentos do foguete.
+ *                       example:
+ *                         - rocketName: Falcon Heavy
+ *                           rocketId: "5e9d0d95eda69974db09d1ed"
+ *                           year: 2018
+ *                           reused: false
+ *                           count: 1
+ *                     "Falcon 1":
+ *                       type: array
+ *                       items:
+ *                         type: object
+ *                         properties:
+ *                           rocketName:
+ *                             type: string
+ *                             description: Nome do foguete.
+ *                           rocketId:
+ *                             type: string
+ *                             description: ID do foguete.
+ *                           year:
+ *                             type: number
+ *                             description: Ano do lançamento.
+ *                           reused:
+ *                             type: boolean
+ *                             description: Indica se o foguete foi reusado ou não.
+ *                           count:
+ *                             type: number
+ *                             description: Quantidade de lançamentos do foguete.
+ *                       example:
+ *                         - rocketName: Falcon 1
+ *                           rocketId: "5e9d0d95eda69955f709d1eb"
+ *                           year: 2006
+ *                           reused: false
+ *                           count: 1
+ *                     "Falcon 9 old":
+ *                       type: array
+ *                       items:
+ *                         type: object
+ *                         properties:
+ *                           rocketName:
+ *                             type: string
+ *                             description: Nome do foguete.
+ *                           rocketId:
+ *                             type: string
+ *                             description: ID do foguete.
+ *                           year:
+ *                             type: number
+ *                             description: Ano do lançamento.
+ *                           reused:
+ *                             type: boolean
+ *                             description: Indica se o foguete foi reusado ou não.
+ *                           count:
+ *                             type: number
+ *                             description: Quantidade de lançamentos do foguete.
+ *                       example:
+ *                         - rocketName: Falcon 9 old
+ *                           rocketId: "5e9d0d95eda69973a809d1ec"
+ *                           year: 2010
+ *                           reused: false
+ *                           count: 2
+ */
+
+
 launches_routes.get("/stats/years", (req: Request, res: Response)=>{
     const controller = makeStatsByYearsLaunchesController();
     return controllerAdapterExpress.handle(req, res, controller);
