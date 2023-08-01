@@ -1,5 +1,5 @@
 import { Launch } from "@prisma/client";
-import { IGetLaunch, ILaunchesRepository, PizzaStats } from "../implements/ilaunchesRepository";
+import { IGetLaunch, ILaunchesRepository, LaunchStatsByYears, PizzaStats } from "../implements/ilaunchesRepository";
 
 
 class InMemoryLaunchesRepository implements ILaunchesRepository {
@@ -26,6 +26,9 @@ class InMemoryLaunchesRepository implements ILaunchesRepository {
                 launchId: `lauchId_${i}_${j}`,
             })),
         }));
+    }
+    getLaunchStatsByYearAndRocket(): Promise<LaunchStatsByYears> {
+        throw new Error("Method not implemented.");
     }
     statsOfPizza(): Promise<PizzaStats[]> {
         throw new Error("Method not implemented.");
