@@ -1,13 +1,11 @@
 import { DatabaseUpdate } from "./DatabaseUpdate";
 import { PrismaLaunchesRepository } from "@/entities/prismaRepositories/prismaLaunchesRepository";
-import { PrismaFailuresRepository } from "@/entities/prismaRepositories/prismaFailuresRepository";
 import { PrismaPayloadsRepository } from "@/entities/prismaRepositories/prismaPayloadsRepository";
 import { PrismaRocketsRepository } from "@/entities/prismaRepositories/prismaRocketsRepository";
 import { apiSpace } from "../api";
 import { execSync } from "child_process";
 
 const prismaLaunchesRepository = new PrismaLaunchesRepository();
-const prismaFailuresRepository = new PrismaFailuresRepository();
 const prismaPayloadsRepository = new PrismaPayloadsRepository();
 const prismaRocketsRepository = new PrismaRocketsRepository();
 
@@ -15,7 +13,6 @@ const databaseUpdate = new DatabaseUpdate(
     prismaLaunchesRepository,
     prismaRocketsRepository,
     prismaPayloadsRepository,
-    prismaFailuresRepository,
     apiSpace,
 );
 
