@@ -1,8 +1,7 @@
-import { IFailuresRepository } from "@/entities/implements/ifailuresRepository";
 import { ILaunchesRepository } from "@/entities/implements/ilaunchesRepository";
 import { IPayloadRepository } from "@/entities/implements/ipayloadsRepository";
 import { IRocketsRepository } from "@/entities/implements/irocketsRepository";
-import { Launch, Payload, Rocket, Failure } from "@prisma/client";
+import { Launch, Payload, Rocket } from "@prisma/client";
 import { AxiosInstance } from "axios";
 
 class DatabaseUpdate{
@@ -11,7 +10,6 @@ class DatabaseUpdate{
         private launchesRepository: ILaunchesRepository,
         private rocketsRepository: IRocketsRepository,
         private payloadsRepository: IPayloadRepository,
-        private failuresRepository: IFailuresRepository,
         private apiSpace: AxiosInstance,
     ){}
 
