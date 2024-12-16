@@ -7,7 +7,7 @@ const routes = Router();
 routes.use("/launches", launches_routes);
 
 routes.use('/update',  async (req: Request, res: Response)=>{
-    await databaseUpdate.execute 
+    await databaseUpdate.execute();
     return res.status(200).send("database update success");
 })
 

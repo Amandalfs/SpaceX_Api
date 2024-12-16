@@ -31,6 +31,15 @@ interface ISummary {
     failures: number,
 }
 
+interface arrayStatsByYear {
+    rocketName: string,
+    rocketId: string,
+    year: number,
+    reused: boolean,
+    count:  number,
+}
+
+type LaunchStatsByYears = Record<string, arrayStatsByYear[]>
   
 interface ILaunchesRepository {
     add(data: Launch): Promise<void>
@@ -41,11 +50,14 @@ interface ILaunchesRepository {
     countRows(): Promise<number>
     statsOfPizza(): Promise<PizzaStats[]>
     sumaryStats(): Promise<ISummary>
+    getLaunchStatsByYearAndRocket(): Promise<LaunchStatsByYears>
 }
 
 export {
     ILaunchesRepository,
     IGetLaunch,
     PizzaStats,
-    ISummary
+    ISummary,
+    LaunchStatsByYears,
+    arrayStatsByYear,
 }
