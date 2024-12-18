@@ -1,0 +1,12 @@
+name: CronJobUpdateDatabase
+
+on:
+    schedule:
+    - cron: "30 10 * * 4"
+    # 15 minutes after the hour on Thursday
+jobs:
+    update-request:
+        runs-on: ubuntu-latest
+        steps:
+        - name: Update Database
+          run: curl {server_url}/update   
