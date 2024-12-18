@@ -1,6 +1,6 @@
 on:
     schedule:
-      - cron: "5 * * * *" # a cada 15 minutos  
+      - cron: "0 9 * * *" # a cada 15 minutos  
 jobs:
     update-request:
       runs-on: ubuntu-latest
